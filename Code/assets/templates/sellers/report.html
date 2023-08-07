@@ -1,0 +1,59 @@
+{%extends 'sellers/sellerbase.html'%}
+{%load static%}
+{%block contents%}
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  </style>
+    <center>
+        <h1>Crop Report</h1>
+        {% if cropDetails %}
+      <form action="{% url 'SellerUserreportform'  %}" method="POST">
+        {% csrf_token %}
+        <!-- <select name="crop">
+          {% for crop in cropDetails %}
+          <option value={{crop.cropname}}>{{crop.cropname}}</option>
+        <input type="text" value="{{cropname}}">
+          {% endfor %}
+          </select> -->
+          <input type="text" name="crop" placeholder="search crop">
+          <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
+      </form>
+      {% endif %}
+    {% if reports %}
+      <section class="ftco-section img">
+    	<div class="container">
+		    <div class="row justify-content-end">
+          <table>
+            <tr>
+              <th>Crop Name</th>
+              <th>Price</th>
+              <th>Date</th>
+            </tr>
+            {% for report in reports %}
+            <tr>
+              <td>{{report.cropname}}</td>
+              <td>{{report.price}}</td>
+              <td>{{report.cdate}}</td>
+            </tr>
+            {% endfor %}
+          </table>
+          </div>
+          </div>
+          </section>
+          {% endif %}
+</center>
+{%endblock%}
